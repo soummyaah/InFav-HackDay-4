@@ -3,6 +3,7 @@ import { PersonaRouter } from "./routes/PersonaRoute";
 import { StrategyRouter } from "./routes/StrategyRoute";
 import { SeriesRouter } from "./routes/SeriesRoute";
 import { PostRouter } from "./routes/Post";
+import { pool } from "./db/psql";
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -16,6 +17,15 @@ app.use("/post", PostRouter)
 app.get('/health', (req, res) => {
   res.sendStatus(200)
 });
+
+app.get("/users", async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM users');
+    res.json(result.rows);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
