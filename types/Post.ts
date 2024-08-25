@@ -1,4 +1,4 @@
-export type PostSample = {
+export type Post = {
     id: string,
     series_id: string,
     engagement_metrics: Object,
