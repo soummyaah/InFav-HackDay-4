@@ -2,6 +2,7 @@ import { Router } from "express"
 import { Persona } from "../../types/Persona"
 import { Strategy } from "../../types/Strategy"
 import { pool } from "../db/psql"; // Import the pool instance
+import { v4 as uuidv4 } from 'uuid';
 
 const router = Router()
 
@@ -9,10 +10,10 @@ const router = Router()
  * get all personas for a user
  */
 router.get("/", async (req, res, next) => {
-    const { user_id } = req.query;
+   // const { user_id } = req.query;
 
     try {
-        const personas = await pool.query('SELECT * FROM personas WHERE user_id = $1', [user_id]);
+        const personas = await pool.query('SELECT * FROM persona');
         res.status(200).json(personas.rows);
     } catch (err) {
         next(err); // Passes the error to the error handling middleware
@@ -26,7 +27,7 @@ router.get("/:id", async (req, res, next) => {
     const { id } = req.params;
 
     try {
-        const persona = await pool.query('SELECT * FROM personas WHERE id = $1', [id]);
+        const persona = await pool.query('SELECT * FROM persona WHERE id = $1', [id]);
         if (persona.rows.length === 0) {
             return res.status(404).json({ error: 'Persona not found' });
         }
@@ -42,10 +43,13 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
     const { user_id, professional_identity, focus_area, story, business_story, target_audience, persona_data } = req.body.persona as Persona;
 
+    const id = uuidv4(); // TODO: Make id column SERIAL so that this is not needed
     try {
         const newPersona = await pool.query(
-            'INSERT INTO personas (user_id, professional_identity, focus_area, story, business_story, target_audience, persona_data) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-            [user_id, professional_identity, focus_area, story, business_story, target_audience, persona_data]
+            `INSERT INTO persona (id, user_id, professional_identity, focus_area, story, business_story, target_audience, persona_data) 
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
+             RETURNING *`,
+            [id, user_id, professional_identity, focus_area, story, business_story, target_audience, persona_data]
         );
         res.status(201).json(newPersona.rows[0]);
     } catch (err) {
@@ -62,7 +66,7 @@ router.patch("/:id", async (req, res, next) => {
 
     try {
         const updatedPersona = await pool.query(
-            `UPDATE personas 
+            `UPDATE persona
              SET professional_identity = $1, focus_area = $2, story = $3, business_story = $4, target_audience = $5, persona_data = $6
              WHERE id = $7
              RETURNING *`,
@@ -85,7 +89,7 @@ router.delete("/:id", async (req, res, next) => {
     const { id } = req.params;
 
     try {
-        const deleteResult = await pool.query('DELETE FROM personas WHERE id = $1 RETURNING *', [id]);
+        const deleteResult = await pool.query('DELETE FROM persona WHERE id = $1 RETURNING *', [id]);
         if (deleteResult.rows.length === 0) {
             return res.status(404).json({ error: 'Persona not found' });
         }

@@ -2,7 +2,7 @@ import express from "express"
 import { PersonaRouter } from "./routes/PersonaRoute";
 import { StrategyRouter } from "./routes/StrategyRoute";
 import { SeriesRouter } from "./routes/SeriesRoute";
-import { PostRouter } from "./routes/Post";
+import { PostRouter } from "./routes/PostRoute";
 import { pool } from "./db/psql";
 const app = express();
 const port = process.env.PORT || 3000;
@@ -26,6 +26,8 @@ app.get("/users", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 })
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
