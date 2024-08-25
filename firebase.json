@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "public": "public",
+    "rewrites": [
+      {
+        "source": "/**",
+        "run": {
+          "serviceId": "infav",
+          "region": "us-central1"
+        }
+      }
+    ]
+  }
+}
