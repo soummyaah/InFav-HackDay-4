@@ -1,9 +1,15 @@
 export type Strategy = {
     id: string
-    persona_id: string
+    persona_id: string,
+    target_persona: {
+        sector: string,
+        audience: string,
+    },
+    purpose: string,
+    content: string,
+    no_of_posts: number,
     timeline: Object
-    audience: Object
     goals: Object
-    content_needs: Object
-    value_prop: Object
+    value_prop: Object,
+    target_posts: Object
 }
