@@ -1,4 +1,3 @@
-
 export type PostSample = {
     sample_id: string,
     user_id: string,

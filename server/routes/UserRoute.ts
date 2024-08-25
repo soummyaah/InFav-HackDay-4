@@ -1,12 +1,12 @@
 import express from "express"
-import { UserProfile } from "../../types/UserProfile"
+import { Persona } from "../../types/Persona"
 
 const router = express.Router()
 const authRouter = express.Router()
 
 const AuthMiddleware = authRouter.use("/", (req,res,next) => {
     // create/load user into DB
-    const userData = req.header()
+    const user_token = req
 })
 
 /**
@@ -27,9 +27,12 @@ router.get("/:id", (req, res, next) => {
  * creates a user
  */
 router.post("/", (req, res, next) => {
-    const userProfile = <UserProfile>req.body.userProfile
+    const userProfile = <Persona>req.body.userProfile
 })
 
+/**
+ * generate a persona
+ */
 router.post("/:id/persona", (req, res, next) => {
 
 })
