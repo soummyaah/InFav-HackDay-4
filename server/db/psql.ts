@@ -1,4 +1,4 @@
-import { Pool, Client } from 'pg';
+import { Pool } from 'pg';
 
 export const pool = new Pool({
   user: 'u33khf0lcb24d3',
