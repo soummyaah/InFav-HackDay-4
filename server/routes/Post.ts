@@ -23,3 +23,6 @@ router.patch("/:id", (req, res, next) => {
 router.delete("/:id", (req, res, next) => {
     const { id } = req.params
 })
+
+export { router as PostRouter }
+

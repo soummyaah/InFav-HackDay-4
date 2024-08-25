@@ -45,3 +45,5 @@ router.delete("/:id", (req, res, next) => {
 router.post("/:id/upload_sample", (req, res, next) => {
     
 })
+
+export { router as PersonaRouter }
