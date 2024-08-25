@@ -1,0 +1,8 @@
+- P0: Change password of postgres database
+- Implement routes and business logic
+- Firebase Auth setup & middleware
+- Firebase deployment & postgres connection test
+    - dockerizing
+    - follow instruction for g cloud run
+
+- UI implementation
