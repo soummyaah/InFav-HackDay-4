@@ -10,6 +10,7 @@ up to date, audited 100 packages in 535ms
 found 0 vulnerabilities
 
 >ts-node server/server.ts
+
 'ts-node' is not recognized as an internal or external command,
 operable program or batch file.
 
@@ -18,4 +19,5 @@ operable program or batch file.
 added 20 packages in 1s
 
 >ts-node server/server.ts
+
 Server is running on http://localhost:3000
